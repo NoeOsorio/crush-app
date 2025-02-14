@@ -40,7 +40,7 @@ let askedQuestions: AskedQuestion[] = []
 export const openAIService = {
   async generateQuestion(previousAnswers: string[]): Promise<GenerateQuestionResponse> {
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4o-mini",
       messages: [
         {
           role: "system",
@@ -127,11 +127,11 @@ export const openAIService = {
 
   async generateResult(answers: string[]): Promise<GenerateResultResponse> {
     const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4o-mini",
       messages: [
         {
           role: "system",
-          content: `Eres un experto en análisis de relaciones con un toque de humor.
+          content: `Eres un experto en análisis de cuanto le gustas a tu crush con un toque de humor.
             Basándote en las respuestas del test, debes generar un resultado divertido pero revelador.
 
             IMPORTANTE:

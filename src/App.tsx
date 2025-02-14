@@ -20,9 +20,9 @@ function App() {
   }
 
   return (
-    <>
-      <div className="min-h-screen bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-xl shadow-2xl p-6 space-y-6">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-pink-500 to-purple-600">
+      <main className="flex-1 flex items-center justify-center p-4 sm:p-6">
+        <div className="w-full max-w-md bg-white rounded-xl shadow-2xl p-6 space-y-6">
           <header className="text-center">
             <h1 className="text-3xl font-bold text-pink-600">
               💘 Detector de Crush 💘
@@ -51,9 +51,9 @@ function App() {
             <Result answers={answers} onRestart={handleRestart} />
           )}
         </div>
-      </div>
+      </main>
       <Footer />
-    </>
+    </div>
   )
 }
 
