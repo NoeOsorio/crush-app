@@ -93,9 +93,13 @@ export function Result({ answers, onRestart }: ResultProps) {
             onClick={() => {
               navigator.share?.({
                 title: '¡Mi resultado en el Detector de Crush!',
-                text: `${result.title}\n${result.description}`
+                text: `${result.title}\n${result.description}\n\n¿Quieres saber si tu crush te corresponde? Haz el test en crush.noeosorio.com 💘`,
+                url: 'https://crush.noeosorio.com'
               }).catch(() => {
-                alert('¡Comparte tu resultado con tus amigos!')
+                const text = `${result.title}\n${result.description}\n\n¿Quieres saber si tu crush te corresponde? Haz el test en https://crush.noeosorio.com 💘`;
+                navigator.clipboard.writeText(text)
+                  .then(() => alert('¡Texto copiado al portapapeles!'))
+                  .catch(() => alert('¡Comparte tu resultado con tus amigos!'));
               })
             }}
             className="text-pink-500 hover:text-pink-600 text-sm font-medium"
