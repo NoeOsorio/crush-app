@@ -88,19 +88,33 @@ export function Result({ answers, onRestart }: ResultProps) {
           Intentar con otro crush 💘
         </button>
         
-        <button
-          onClick={() => {
-            navigator.share?.({
-              title: '¡Mi resultado en el Detector de Crush!',
-              text: `${result.title}\n${result.description}`
-            }).catch(() => {
-              alert('¡Comparte tu resultado con tus amigos!')
-            })
-          }}
-          className="text-pink-500 hover:text-pink-600 text-sm font-medium"
-        >
-          Compartir resultado 🔄
-        </button>
+        <div className="space-y-2">
+          <button
+            onClick={() => {
+              navigator.share?.({
+                title: '¡Mi resultado en el Detector de Crush!',
+                text: `${result.title}\n${result.description}`
+              }).catch(() => {
+                alert('¡Comparte tu resultado con tus amigos!')
+              })
+            }}
+            className="text-pink-500 hover:text-pink-600 text-sm font-medium"
+          >
+            Compartir resultado 🔄
+          </button>
+
+          <p className="text-xs text-gray-500 pt-2">
+            ¿Te gustó el test? 
+            <a 
+              href="https://www.buymeacoffee.com/noeosorio" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-pink-500 hover:text-pink-600 ml-1"
+            >
+              ¡Invítame un café! ☕️
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   )
