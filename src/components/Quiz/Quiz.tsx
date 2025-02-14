@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { AnalysisLoader } from '../AnalysisLoader/AnalysisLoader'
+import { InitialLoader } from '../InitialLoader/InitialLoader'
 import { openAIService } from '../../services/openai'
 
 type QuizProps = {
@@ -16,9 +17,11 @@ export function Quiz({ onComplete }: QuizProps) {
   const [currentQuestion, setCurrentQuestion] = useState<string>('')
   const [options, setOptions] = useState<Option[]>([])
   const [isAnalyzing, setIsAnalyzing] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [answers, setAnswers] = useState<string[]>([])
   const [isPositive, setIsPositive] = useState(true)
   const [analysisMessages, setAnalysisMessages] = useState<string[]>([])
+  const [isPreparingResult, setIsPreparingResult] = useState(false)
 
   const loadNextQuestion = async () => {
     try {
@@ -27,6 +30,8 @@ export function Quiz({ onComplete }: QuizProps) {
       setOptions(response.options)
     } catch (error) {
       console.error('Error generando pregunta:', error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -49,19 +54,40 @@ export function Quiz({ onComplete }: QuizProps) {
       setAnswers(newAnswers)
 
       if (newAnswers.length >= 5) {
+        setIsPreparingResult(true)
         setTimeout(() => {
           onComplete(newAnswers)
         }, 2000)
       } else {
+        await loadNextQuestion()
         setTimeout(() => {
           setIsAnalyzing(false)
-          loadNextQuestion()
         }, 2000)
       }
     } catch (error) {
       console.error('Error analizando respuesta:', error)
       setIsAnalyzing(false)
     }
+  }
+
+  if (isLoading) {
+    return <InitialLoader />
+  }
+
+  if (isPreparingResult) {
+    return (
+      <div className="text-center space-y-4">
+        <div className="animate-spin text-4xl">
+          💝
+        </div>
+        <p className="text-gray-600 animate-pulse">
+          Analizando todas tus respuestas...
+        </p>
+        <p className="text-sm text-gray-500">
+          Preparando el veredicto final
+        </p>
+      </div>
+    )
   }
 
   return (
